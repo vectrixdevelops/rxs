@@ -43,7 +43,7 @@ public class RxSpongeScheduler extends Scheduler {
         this.async = async;
     }
 
-    private Task simpleSchedule(final @NonNull Action0 action) {
+    private @NonNull Task simpleSchedule(final @NonNull Action0 action) {
         final Task.Builder builder = Sponge.getScheduler().createTaskBuilder()
                 .execute(action::call);
 
@@ -52,7 +52,7 @@ public class RxSpongeScheduler extends Scheduler {
         return builder.submit(this.plugin);
     }
 
-    private Task delaySchedule(final @NonNull Action0 action, final long delay, final @NonNull TimeUnit timeUnit) {
+    private @NonNull Task delaySchedule(final @NonNull Action0 action, final long delay, final @NonNull TimeUnit timeUnit) {
         final Task.Builder builder = Sponge.getScheduler().createTaskBuilder()
                 .execute(action::call)
                 .delay(delay, timeUnit);
@@ -62,7 +62,7 @@ public class RxSpongeScheduler extends Scheduler {
         return builder.submit(this.plugin);
     }
 
-    private Task intervalSchedule(final @NonNull Action0 action, final long delay, final long interval, final @NonNull TimeUnit timeUnit) {
+    private @NonNull Task intervalSchedule(final @NonNull Action0 action, final long delay, final long interval, final @NonNull TimeUnit timeUnit) {
         final Task.Builder builder = Sponge.getScheduler().createTaskBuilder()
                 .execute(action::call)
                 .delay(delay, timeUnit)
@@ -74,7 +74,7 @@ public class RxSpongeScheduler extends Scheduler {
     }
 
     @Override
-    public Worker createWorker() {
+    public @NonNull Worker createWorker() {
         return new RxSpongeWorker();
     }
 
@@ -83,17 +83,18 @@ public class RxSpongeScheduler extends Scheduler {
         private final CompositeSubscription allSubscriptions = new CompositeSubscription();
 
         @Override
-        public Subscription schedule(final Action0 action) {
+        public @NonNull Subscription schedule(final @NonNull Action0 action) {
             return new RxSpongeTaskSubscription(action, this.allSubscriptions);
         }
 
         @Override
-        public Subscription schedule(final Action0 action, final long delay, final TimeUnit timeUnit) {
+        public @NonNull Subscription schedule(final @NonNull Action0 action, final long delay, final @NonNull TimeUnit timeUnit) {
             return new RxSpongeTaskSubscription(action, delay, timeUnit, this.allSubscriptions);
         }
 
         @Override
-        public Subscription schedulePeriodically(final Action0 action, final long delay, final long interval, final TimeUnit timeUnit) {
+        public @NonNull Subscription schedulePeriodically(final @NonNull Action0 action, final long delay, final long interval,
+                                                          final @NonNull TimeUnit timeUnit) {
             return new RxSpongeTaskSubscription(action, delay, interval, timeUnit, this.allSubscriptions);
         }
 

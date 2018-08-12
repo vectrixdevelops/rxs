@@ -41,28 +41,28 @@ public class RxSpongeEventStreamer extends AbstractSpongeStreamer {
         super(plugin, syncScheduler, asyncScheduler);
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEvent(final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(eventTypes).compose(this.getSyncTransformer());
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEvent(final Order order, final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Order order, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, eventTypes).compose(this.getSyncTransformer());
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEvent(final Order order, final boolean ignoreCancelled, final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Order order, final boolean ignoreCancelled, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, ignoreCancelled, eventTypes).compose(this.getSyncTransformer());
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(Order.DEFAULT, eventTypes);
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final Order order, final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Order order, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, false, eventTypes);
     }
 
-    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final Order order, final boolean ignoreCancelled,
-                                                                          final Class<? extends T>... eventTypes) {
+    public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Order order, final boolean ignoreCancelled,
+                                                                          final @NonNull Class<? extends T>... eventTypes) {
         return Observable.unsafeCreate(subscriber -> {
             for (final Class<? extends T> eventType : eventTypes) {
                 final EventListener<T> eventListener = event -> {
