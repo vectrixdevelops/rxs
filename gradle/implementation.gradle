@@ -1,0 +1,45 @@
+license {
+    header = file('LICENSE.txt')
+    include '**/*.java'
+
+    ignoreFailures = false
+    strictCheck = true
+
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+jar {
+    classifier = 'dev'
+}
+
+signing {
+    required false
+    sign configurations.archives
+}
+
+shadowJar {
+    classifier = ''
+
+    dependencies {
+        include(dependency('com.github.IchorPowered.GuardianCommon:guardianapi'))
+        include(dependency('com.github.IchorPowered.GuardianCommon:guardiancommon'))
+        include(dependency('org.fusesource.jansi:jansi'))
+        include(dependency('org.checkerframework:checker-qual'))
+        include(dependency('net.kyori:violet'))
+        include(dependency('com.google.inject.extensions:guice-assistedinject'))
+        include(dependency('com.google.inject.extensions:guice-multibindings'))
+    }
+}
+
+artifacts {
+    archives jar
+    archives shadowJar
+}
+
+model {
+    tasks.signArchives {
+        dependsOn shadowJar
+    }
+}
