@@ -11,15 +11,7 @@ license {
 }
 
 jar {
-    classifier = 'dev'
-}
-
-shadowJar {
     classifier = ''
-
-    dependencies {
-        include(dependency('io.reactivex:rxjava'))
-    }
 }
 
 task sourceJar(type: Jar) {
@@ -35,5 +27,4 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourceJar
     archives jar
-    archives shadowJar
 }

@@ -14,8 +14,6 @@ plugins {
     id 'maven'
     id 'idea'
     id 'eclipse'
-    id 'signing'
-    id 'com.github.johnrengelman.shadow' version '2.0.0'
 }
 
 apply plugin: "com.github.hierynomus.license"
@@ -39,6 +37,5 @@ dependencies {
 apply from: project.file("gradle/implementation.gradle")
 apply from: project.file("gradle/publish.gradle")
 
-build.dependsOn(shadowJar)
 build.dependsOn(sourceJar)
 build.dependsOn(jar)
