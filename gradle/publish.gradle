@@ -1,13 +1,10 @@
-apply plugin: 'maven-publish'
-
-
 if (System.env.TRAVIS && !Boolean.valueOf(System.env.TRAVIS_PULL_REQUEST)) {
     uploadArchives {
         repositories {
             mavenDeployer {
                 configuration = configurations.deployerJars
 
-                def base = project.ext.getCurrentBranchName() == "master" ? 'ftp://maven.ichorpowered.com/maven-repo' : File.createTempDir().toURI().toURL().toString()
+                def base = project.ext.getCurrentBranchName() == "master" ? 'scp://maven.ichorpowered.com/maven-repo' : File.createTempDir().toURI().toURL().toString()
                 def releasesRepoUrl = "$base/releases"
                 def snapshotsRepoUrl = "$base/snapshots"
 
