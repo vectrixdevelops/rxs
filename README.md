@@ -1,6 +1,6 @@
-# SRX (ReactiveX for Sponge)
+# RXS (ReactiveX for Sponge)
 
-SRX is a ReactiveX wrapper over Sponge events and scheduler with a few common utilities.
+RXS is a ReactiveX wrapper over Sponge events and scheduler with a few common utilities.
 
 # Details
 
@@ -9,7 +9,7 @@ SRX is a ReactiveX wrapper over Sponge events and scheduler with a few common ut
 
 # Using
 
-SRX is designed to be shaded into your plugin jar and initialized once for your plugin.
+RXS is designed to be shaded into your plugin jar and initialized once for your plugin.
 
 ```java
 final RxSpongeScheduler syncScheduler = new RxSpongeScheduler(this, false);
