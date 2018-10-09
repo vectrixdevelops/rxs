@@ -5,8 +5,12 @@ if (System.env.TRAVIS && !Boolean.valueOf(System.env.TRAVIS_PULL_REQUEST)) {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: 'http://repo.foxdenstudio.net/repository/maven-vectrix/') {
-                    authentication(userName: System.env.NEXUS_USER, password: System.env.NEXUS_PASS)
+                def base = project.ext.getCurrentBranchName() == "master" ? 'file://maven.ichorpowered.com/maven-repo' : File.createTempDir().toURI().toURL().toString()
+                def releasesRepoUrl = "$base/releases"
+                def snapshotsRepoUrl = "$base/snapshots"
+                
+                repository(url: version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl) {
+                    authentication(userName: System.env.MAVEN_USER, password: System.env.MAVEN_PASS)
                 }
 
                 pom.project {
