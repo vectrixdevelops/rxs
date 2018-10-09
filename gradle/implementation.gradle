@@ -1,3 +1,16 @@
+ext {
+    getCurrentBranchName = {
+        new ByteArrayOutputStream().withStream { os ->
+            exec {
+                executable = "git"
+                args = ["rev-parse", "--abbrev-ref", "HEAD"]
+                standardOutput = os
+            }
+            return os.toString().trim()
+        }
+    }
+}
+
 license {
     header = file('LICENSE.txt')
     include '**/*.java'
