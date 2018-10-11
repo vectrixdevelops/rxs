@@ -1,14 +1,11 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 if (System.env.TRAVIS && !Boolean.valueOf(System.env.TRAVIS_PULL_REQUEST)) {
     uploadArchives {
         repositories {
             mavenDeployer {
-                configuration = configurations.deployerJars
-
-                def base = project.ext.getCurrentBranchName() == "master" ? 'scp://maven.ichorpowered.com/maven-repo' : File.createTempDir().toURI().toURL().toString()
-                def releasesRepoUrl = "$base/releases"
-                def snapshotsRepoUrl = "$base/snapshots"
-
-                repository(url: version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl) {
+                repository(url: 'http://maven.ichorpowered.com/repository/maven-snapshots/') {
                     authentication(userName: System.env.MAVEN_USER, password: System.env.MAVEN_PASS)
                 }
 
