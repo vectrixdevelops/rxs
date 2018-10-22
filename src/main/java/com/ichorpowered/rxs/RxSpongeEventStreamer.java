@@ -41,26 +41,32 @@ public class RxSpongeEventStreamer extends AbstractSpongeStreamer {
         super(plugin, syncScheduler, asyncScheduler);
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(eventTypes).compose(this.getSyncTransformer());
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Order order, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, eventTypes).compose(this.getSyncTransformer());
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEvent(final @NonNull Order order, final boolean ignoreCancelled, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, ignoreCancelled, eventTypes).compose(this.getSyncTransformer());
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(Order.DEFAULT, eventTypes);
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Order order, final @NonNull Class<? extends T>... eventTypes) {
         return observeEventRaw(order, false, eventTypes);
     }
 
+    @SafeVarargs
     public final <T extends Event> @NonNull Observable<T> observeEventRaw(final @NonNull Order order, final boolean ignoreCancelled,
                                                                           final @NonNull Class<? extends T>... eventTypes) {
         return Observable.unsafeCreate(subscriber -> {
