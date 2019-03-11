@@ -59,9 +59,9 @@ public class RxSpongeDataStreamer extends AbstractSpongeStreamer {
 
                 // Unsubscribe action
                 subscriber.add(Subscriptions.create(() -> Sponge.getEventManager().unregisterListeners(eventListener)));
-
-                Sponge.getEventManager().registerListener(this.plugin, GameStoppingEvent.class, Order.DEFAULT, event -> subscriber.onCompleted());
             }
+
+            Sponge.getEventManager().registerListener(this.plugin, GameStoppingEvent.class, Order.DEFAULT, event -> subscriber.onCompleted());
         });
     }
 
