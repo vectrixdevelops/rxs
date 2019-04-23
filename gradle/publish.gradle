@@ -5,7 +5,7 @@ if (System.env.TRAVIS && !Boolean.valueOf(System.env.TRAVIS_PULL_REQUEST)) {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: 'http://maven.ichorpowered.com/repository/maven-snapshots/') {
+                repository(url: 'https://maven.ichorpowered.com/repository/maven-snapshots/') {
                     authentication(userName: System.env.MAVEN_USER, password: System.env.MAVEN_PASS)
                 }
 
@@ -21,13 +21,13 @@ if (System.env.TRAVIS && !Boolean.valueOf(System.env.TRAVIS_PULL_REQUEST)) {
 
                     issueManagement {
                         system 'Github Issues'
-                        url 'https://github.com/ichorpowered/guardian/issues'
+                        url 'https://github.com/ichorpowered/rxs/issues'
                     }
 
                     scm {
-                        connection 'scm:git@github.com/ichorpowered/guardian.git'
-                        developerConnection 'scm:git@github.com/ichorpowered/guardian.git'
-                        url 'https://github.com/ichorpowered/guardian/'
+                        connection 'scm:git@github.com/ichorpowered/rxs.git'
+                        developerConnection 'scm:git@github.com/ichorpowered/rxs.git'
+                        url 'https://github.com/ichorpowered/rxs/'
                     }
                 }
             }
