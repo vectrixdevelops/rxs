@@ -14,6 +14,8 @@ plugins {
     id 'maven'
     id 'idea'
     id 'eclipse'
+    id 'ninja.miserable.blossom' version '1.0.1'
+    id 'org.spongepowered.plugin' version '0.8.2'
 }
 
 apply plugin: "com.github.hierynomus.license"
@@ -30,9 +32,18 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.spongepowered:spongeapi:7.1.0-SNAPSHOT"
+    compileOnly 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
 
     compile 'io.reactivex:rxjava:1.3.8'
+}
+
+blossom {
+    def location = 'src/main/java/com/ichorpowered/rxs/RxsPlugin.java'
+
+    replaceToken '@id@', 'rxs', location
+    replaceToken '@name@', 'ReactiveX Sponge', location
+    replaceToken '@version@', version, location
+    replaceToken '@description@', 'A ReactiveX wrapper for Sponge.', location
 }
 
 apply from: project.file("gradle/implementation.gradle")
