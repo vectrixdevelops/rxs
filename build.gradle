@@ -5,6 +5,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
         classpath "gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0"
     }
 }
@@ -18,7 +19,8 @@ plugins {
     id 'org.spongepowered.plugin' version '0.8.2'
 }
 
-apply plugin: "com.github.hierynomus.license"
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'com.github.hierynomus.license'
 
 defaultTasks 'licenseFormat', 'build'
 
@@ -40,10 +42,16 @@ dependencies {
 blossom {
     def location = 'src/main/java/com/ichorpowered/rxs/RxsPlugin.java'
 
-    replaceToken '@id@', 'rxs', location
+    replaceToken '@id@', 'rxjava-sponge', location
     replaceToken '@name@', 'ReactiveX Sponge', location
     replaceToken '@version@', version, location
     replaceToken '@description@', 'A ReactiveX wrapper for Sponge.', location
+}
+
+shadowJar {
+    dependencies {
+        include dependency('io.reactivex:rxjava')
+    }
 }
 
 apply from: project.file("gradle/implementation.gradle")
@@ -52,3 +60,4 @@ apply from: project.file("gradle/publish.gradle")
 build.dependsOn(javadocJar)
 build.dependsOn(sourceJar)
 build.dependsOn(jar)
+build.dependsOn(shadowJar)
